@@ -96,7 +96,8 @@ float GetLightness(COLORREF c) {
 // returns the background color for start page, About window and Properties dialog
 static COLORREF GetAboutBgColor() {
     COLORREF bgColor = ABOUT_BG_GRAY_COLOR;
-    if (ABOUT_BG_COLOR_DEFAULT != gGlobalPrefs->mainWindowBackground) {
+////    if (ABOUT_BG_COLOR_DEFAULT != gGlobalPrefs->mainWindowBackground) {
+    if (bgColor != gGlobalPrefs->mainWindowBackground) {
         bgColor = gGlobalPrefs->mainWindowBackground;
     }
     return bgColor;
@@ -138,7 +139,8 @@ COLORREF GetAppColor(AppColor col) {
     }
 
     if (col == AppColor::MainWindowBg) {
-        return ABOUT_BG_GRAY_COLOR;
+////        return ABOUT_BG_GRAY_COLOR;
+        return GetAboutBgColor();
     }
 
     if (col == AppColor::MainWindowText) {
@@ -180,11 +182,14 @@ COLORREF GetAppColor(AppColor col) {
     }
 
     if (col == AppColor::TabSelectedBg) {
-        return COL_WHITE;
+////        return COL_WHITE;
+        auto c = GetAppColor(AppColor::TabBackgroundBg);
+        return AdjustLightness2(c, 25);    
     }
 
     if (col == AppColor::TabSelectedText) {
-        return COL_DARK_GRAY;
+////        return COL_DARK_GRAY;
+        return GetAppColor(AppColor::TabBackgroundText);  
     }
 
     if (col == AppColor::TabSelectedCloseX) {
@@ -197,11 +202,13 @@ COLORREF GetAppColor(AppColor col) {
     }
 
     if (col == AppColor::TabBackgroundBg) {
-        return COL_LIGHTER_GRAY;
+////        return COL_LIGHTER_GRAY;
+        return GetSysColor(TAB_COLOR_BG);
     }
 
     if (col == AppColor::TabBackgroundText) {
-        return COL_DARK_GRAY;
+////        return COL_DARK_GRAY;
+        return GetSysColor(TAB_COLOR_TEXT);
     }
 
     if (col == AppColor::TabBackgroundCloseX) {
@@ -213,11 +220,15 @@ COLORREF GetAppColor(AppColor col) {
     }
 
     if (col == AppColor::TabHighlightedBg) {
-        return COL_LIGHT_GRAY;
+////        return COL_LIGHT_GRAY;
+        auto c = GetAppColor(AppColor::TabBackgroundBg);
+        return AdjustLightness2(c, 15);    
+
     }
 
     if (col == AppColor::TabHighlightedText) {
-        return COL_BLACK;
+////        return COL_BLACK;
+        return GetSysColor(TAB_COLOR_TEXT);
     }
 
     if (col == AppColor::TabHighlightedCloseX) {
