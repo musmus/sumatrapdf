@@ -183,13 +183,12 @@ COLORREF GetAppColor(AppColor col) {
 
     if (col == AppColor::TabSelectedBg) {
 ////        return COL_WHITE;
-        auto c = GetAppColor(AppColor::TabBackgroundBg);
-        return AdjustLightness2(c, 25);    
+        return GetSysColor(COLOR_BTNFACE);
     }
 
     if (col == AppColor::TabSelectedText) {
 ////        return COL_DARK_GRAY;
-        return GetAppColor(AppColor::TabBackgroundText);  
+        return GetSysColor(COLOR_CAPTIONTEXT);  
     }
 
     if (col == AppColor::TabSelectedCloseX) {
@@ -203,7 +202,8 @@ COLORREF GetAppColor(AppColor col) {
 
     if (col == AppColor::TabBackgroundBg) {
 ////        return COL_LIGHTER_GRAY;
-        return GetSysColor(COLOR_BTNFACE);
+        auto c = GetAppColor(AppColor::TabBackgroundBg);
+        return AdjustLightness2(c, -15);    
     }
 
     if (col == AppColor::TabBackgroundText) {
@@ -221,7 +221,7 @@ COLORREF GetAppColor(AppColor col) {
 
     if (col == AppColor::TabHighlightedBg) {
 ////        return COL_LIGHT_GRAY;
-        auto c = GetAppColor(AppColor::TabBackgroundBg);
+        auto c = GetAppColor(AppColor::TabSelectedBg);
         return AdjustLightness2(c, 15);    
 
     }
@@ -258,7 +258,8 @@ COLORREF GetAppColor(AppColor col) {
     }
 
     CrashIf(true);
-    return COL_WINDOW_BG;
+////    return COL_WINDOW_BG;
+    return GetAboutBgColor();
 }
 
 void GetFixedPageUiColors(COLORREF& text, COLORREF& bg) {
