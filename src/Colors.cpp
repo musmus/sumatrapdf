@@ -203,12 +203,12 @@ COLORREF GetAppColor(AppColor col) {
 
     if (col == AppColor::TabBackgroundBg) {
 ////        return COL_LIGHTER_GRAY;
-        return GetSysColor(TAB_COLOR_BG);
+        return GetSysColor(COLOR_BTNFACE);
     }
 
     if (col == AppColor::TabBackgroundText) {
 ////        return COL_DARK_GRAY;
-        return GetSysColor(TAB_COLOR_TEXT);
+        return GetSysColor(COLOR_BTNTEXT);
     }
 
     if (col == AppColor::TabBackgroundCloseX) {
@@ -228,7 +228,7 @@ COLORREF GetAppColor(AppColor col) {
 
     if (col == AppColor::TabHighlightedText) {
 ////        return COL_BLACK;
-        return GetSysColor(TAB_COLOR_TEXT);
+        return GetAppColor(AppColor::TabBackgroundText);
     }
 
     if (col == AppColor::TabHighlightedCloseX) {
