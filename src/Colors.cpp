@@ -202,7 +202,7 @@ COLORREF GetAppColor(AppColor col) {
 
     if (col == AppColor::TabBackgroundBg) {
 ////        return COL_LIGHTER_GRAY;
-        auto c = GetAppColor(AppColor::TabBackgroundBg);
+        auto c = GetSysColor(COLOR_BTNFACE);
         return AdjustLightness2(c, -15);    
     }
 
