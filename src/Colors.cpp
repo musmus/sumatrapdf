@@ -121,7 +121,8 @@ static COLORREF GetNoDocBgColor() {
         return GetSysColor(COLOR_BTNFACE);
     }
 
-    return COL_WINDOW_BG;
+////    return COL_WINDOW_BG;
+    return GetAboutBgColor();
 }
 
 COLORREF GetAppColor(AppColor col) {
@@ -188,7 +189,7 @@ COLORREF GetAppColor(AppColor col) {
 
     if (col == AppColor::TabSelectedText) {
 ////        return COL_DARK_GRAY;
-        return GetSysColor(COLOR_CAPTIONTEXT);  
+        return GetSysColor(COLOR_BTNTEXT);
     }
 
     if (col == AppColor::TabSelectedCloseX) {
@@ -208,7 +209,7 @@ COLORREF GetAppColor(AppColor col) {
 
     if (col == AppColor::TabBackgroundText) {
 ////        return COL_DARK_GRAY;
-        return GetSysColor(COLOR_BTNTEXT);
+        return GetSysColor(COLOR_CAPTIONTEXT);  
     }
 
     if (col == AppColor::TabBackgroundCloseX) {
@@ -258,8 +259,7 @@ COLORREF GetAppColor(AppColor col) {
     }
 
     CrashIf(true);
-////    return COL_WINDOW_BG;
-    return GetAboutBgColor();
+    return COL_WINDOW_BG;
 }
 
 void GetFixedPageUiColors(COLORREF& text, COLORREF& bg) {

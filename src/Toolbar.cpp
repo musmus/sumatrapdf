@@ -227,9 +227,10 @@ static LRESULT CALLBACK WndProcToolbar(HWND hwnd, UINT message, WPARAM wParam, L
         WindowInfo* win = FindWindowInfoByHwnd(hStatic);
         if ((win && win->hwndFindBg != hStatic && win->hwndPageBg != hStatic) || theme::IsAppThemed()) {
             HDC hdc = (HDC)wParam;
-////#if defined(USE_THEME_COLORS)
+            SetTextColor(hdc, GetSysColor(COLOR_BTNTEXT));////+
+/*#if defined(USE_THEME_COLORS)
             SetTextColor(hdc, GetSysColor(COLOR_WINDOWTEXT));
-/*            SetBkColor(hdc, GetCurrentTheme()->mainWindow.backgroundColor);
+            SetBkColor(hdc, GetCurrentTheme()->mainWindow.backgroundColor);
             // SetBkMode(hdc, TRANSPARENT);
             auto br = CreateSolidBrush(GetCurrentTheme()->mainWindow.backgroundColor);
 #else
