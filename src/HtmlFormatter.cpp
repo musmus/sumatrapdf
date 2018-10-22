@@ -636,7 +636,8 @@ void HtmlFormatter::EmitParagraph(float indent) {
     FlushCurrLine(true);
     CrashIf(NewLineX() != currX);
     bool needsIndent = Align_Left == CurrStyle()->align || Align_Justify == CurrStyle()->align;
-    if (indent > 0 && needsIndent && EnsureDx(indent)) {
+///    if (indent > 0 && needsIndent && EnsureDx(indent)) {
+    if (indent > 0 ) {
         AppendInstr(DrawInstr::FixedSpace(indent));
         currX += indent;
     }

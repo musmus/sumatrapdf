@@ -189,7 +189,7 @@ COLORREF GetAppColor(AppColor col) {
 
     if (col == AppColor::TabSelectedText) {
 ////        return COL_DARK_GRAY;
-        return GetSysColor(COLOR_BTNTEXT);
+        return GetSysColor(COLOR_CAPTIONTEXT);  
     }
 
     if (col == AppColor::TabSelectedCloseX) {
@@ -209,7 +209,7 @@ COLORREF GetAppColor(AppColor col) {
 
     if (col == AppColor::TabBackgroundText) {
 ////        return COL_DARK_GRAY;
-        return GetSysColor(COLOR_CAPTIONTEXT);  
+        return GetSysColor(COLOR_BTNTEXT);
     }
 
     if (col == AppColor::TabBackgroundCloseX) {
