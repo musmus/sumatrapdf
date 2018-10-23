@@ -720,8 +720,8 @@ void HtmlFormatter::EmitTextRun(const char* s, const char* end) {
         size_t strLen = str::Utf8ToWcharBuf(s, end - s, buf, dimof(buf));
         // soft hyphens should not be displayed
         strLen -= str::RemoveChars(buf, L"\xad");
-        if (0 == strLen)
-            break;
+//        if (0 == strLen)
+//            break;
         textMeasure->SetFont(CurrFont());
         RectF bbox = textMeasure->Measure(buf, strLen);
         EnsureDx(bbox.Width);
@@ -825,8 +825,7 @@ void HtmlFormatter::HandleTagP(HtmlToken* t, bool isDiv) {
         FlushCurrLine(true);
         RevertStyleChange();
     }
-    EmitParagraph(2.0f * CurrFont()->GetSize());
-    EmitEmptyLine(0.8f * CurrFont()->GetSize());
+    EmitEmptyLine(0.4f * CurrFont()->GetSize());
 }
 
 void HtmlFormatter::HandleTagFont(HtmlToken* t) {
