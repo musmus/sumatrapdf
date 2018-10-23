@@ -636,7 +636,6 @@ void HtmlFormatter::EmitParagraph(float indent) {
     FlushCurrLine(true);
     CrashIf(NewLineX() != currX);
     bool needsIndent = Align_Left == CurrStyle()->align || Align_Justify == CurrStyle()->align;
-///    if (indent > 0 && needsIndent && EnsureDx(indent)) {
     if (indent > 0 && needsIndent && EnsureDx(indent)) {
         AppendInstr(DrawInstr::FixedSpace(indent));
         currX += indent;
@@ -695,9 +694,9 @@ static bool CanBreakWordOnChar(WCHAR c) {
     // https://github.com/sumatrapdfreader/sumatrapdf/pull/1057
     // There are other CJK ranges, but less common
     // https://stackoverflow.com/questions/1366068/whats-the-complete-range-for-chinese-characters-in-unicode
-    if (c >= 0x4e00 && c <= 0x9fff) {
+/*    if (c >= 0x4e00 && c <= 0x9fff) {
         return false;
-    }
+    }*/
     return true;
 }
 
