@@ -25,7 +25,7 @@ build_script:
 artifacts:
   - path: rel\SumatraPDF.exe
   - path: rel\Installer.exe
-  - path: rel\SumatraPDF.pdb.lzsa
-  - path: rel64\SumatraPDF.exe
-  - path: rel64\Installer.exe
-  - path: rel64\SumatraPDF.pdb.lzsa
+#  - path: rel\SumatraPDF.pdb.lzsa
+#  - path: rel64\SumatraPDF.exe
+#  - path: rel64\Installer.exe
+#  - path: rel64\SumatraPDF.pdb.lzsa
