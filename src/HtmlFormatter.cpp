@@ -437,7 +437,7 @@ void HtmlFormatter::JustifyCurrLine(AlignAttr align) {
             LayoutLeftStartingAt((pageDx - currX) / 2.f);
             break;
         case Align_Justify:
-//            JustifyLineBoth();
+            JustifyLineBoth();
             break;
         default:
             CrashIf(true);
@@ -635,10 +635,12 @@ void HtmlFormatter::EmitHr() {
 void HtmlFormatter::EmitParagraph(float indent) {
     FlushCurrLine(true);
     CrashIf(NewLineX() != currX);
+    currX = NewLineX();
+    currX += 10.f;
+    FlushCurrLine(true);
     bool needsIndent = Align_Left == CurrStyle()->align || Align_Justify == CurrStyle()->align;
     if (indent > 0 && needsIndent && EnsureDx(indent)) {
         AppendInstr(DrawInstr::FixedSpace(indent));
-        currX = NewLineX();////
         currX += indent;
     }
 }
