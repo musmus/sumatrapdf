@@ -819,8 +819,8 @@ void HtmlFormatter::HandleTagP(HtmlToken* t, bool isDiv) {
             indent = rule.textIndent * factor;
         }
 
-        SetAlignment(align);
-        EmitParagraph(indent);
+        //SetAlignment(align);
+        EmitParagraph(20);
     } else {
         FlushCurrLine(true);
         RevertStyleChange();
@@ -897,7 +897,7 @@ void HtmlFormatter::HandleTagHx(HtmlToken* t) {
         currY += CurrFont()->GetSize() / 2;
         RevertStyleChange();
     } else {
-        EmitParagraph(0);
+        EmitParagraph(20);
         float fontSize = defaultFontSize * pow(1.1f, '5' - t->s[1]);
         if (currY > 0)
             currY += fontSize / 2;
@@ -1100,7 +1100,7 @@ void HtmlFormatter::HandleHtmlTag(HtmlToken* t) {
 
     HtmlTag tag = t->tag;
     if (Tag_P == tag) {
-        HandleTagP(t, true);
+        HandleTagP(t, false);
     } else if (Tag_Hr == tag) {
         EmitHr();
     } else if ((Tag_B == tag) || (Tag_Strong == tag)) {
