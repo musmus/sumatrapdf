@@ -636,7 +636,7 @@ void HtmlFormatter::EmitParagraph(float indent) {
     FlushCurrLine(true);
     CrashIf(NewLineX() != currX);
     bool needsIndent = Align_Left == CurrStyle()->align || Align_Justify == CurrStyle()->align;
-    if (indent > 0 && needsIndent && EnsureDx(indent)) {
+    if (indent > 0 && needsIndent) {
         AppendInstr(DrawInstr::FixedSpace(indent));
         currX += indent;
     }
@@ -801,10 +801,7 @@ static AlignAttr GetAlignAttr(HtmlToken* t, AlignAttr defVal) {
 }
 
 void HtmlFormatter::HandleTagP(HtmlToken* t, bool isDiv) {
-    if (t->IsEndTag()) {
-        FlushCurrLine(true);
-        RevertStyleChange();
-    } else {
+    if (!t->IsEndTag()) {
         AlignAttr align = CurrStyle()->align;
         float indent = 0;
 
@@ -822,10 +819,13 @@ void HtmlFormatter::HandleTagP(HtmlToken* t, bool isDiv) {
             indent = rule.textIndent * factor;
         }
 
-        //SetAlignment(align);
-        EmitParagraph(20);
+        SetAlignment(align);
+        EmitParagraph(indent);
+    } else {
+        FlushCurrLine(true);
+        RevertStyleChange();
+        EmitEmptyLine(0.4f * CurrFont()->GetSize());
     }
-    //EmitEmptyLine(0.4f * CurrFont()->GetSize());
 }
 
 void HtmlFormatter::HandleTagFont(HtmlToken* t) {
@@ -897,7 +897,7 @@ void HtmlFormatter::HandleTagHx(HtmlToken* t) {
         currY += CurrFont()->GetSize() / 2;
         RevertStyleChange();
     } else {
-        EmitParagraph(20);
+        EmitParagraph(0);
         float fontSize = defaultFontSize * pow(1.1f, '5' - t->s[1]);
         if (currY > 0)
             currY += fontSize / 2;
@@ -1100,7 +1100,7 @@ void HtmlFormatter::HandleHtmlTag(HtmlToken* t) {
 
     HtmlTag tag = t->tag;
     if (Tag_P == tag) {
-        HandleTagP(t, false);
+        HandleTagP(t);
     } else if (Tag_Hr == tag) {
         EmitHr();
     } else if ((Tag_B == tag) || (Tag_Strong == tag)) {
