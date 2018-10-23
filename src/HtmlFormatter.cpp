@@ -680,13 +680,13 @@ void HtmlFormatter::EmitElasticSpace() {
 static bool CanBreakWordOnChar(WCHAR c) {
     // this is called frequently, so check most common characters first
     if (c >= 'a' && c <= 'z') {
-//        return false;
+        return false;
     }
     if (c >= 'A' && c <= 'Z') {
-//        return false;
+        return false;
     }
     if (c >= '0' && c <= '9') {
-//        return false;
+        return false;
     }
 
     // don't break on CJK characters
@@ -695,7 +695,7 @@ static bool CanBreakWordOnChar(WCHAR c) {
     // There are other CJK ranges, but less common
     // https://stackoverflow.com/questions/1366068/whats-the-complete-range-for-chinese-characters-in-unicode
     if (c >= 0x4e00 && c <= 0x9fff) {
-//        return false;
+        return false;
     }
     return true;
 }
@@ -825,7 +825,8 @@ void HtmlFormatter::HandleTagP(HtmlToken* t, bool isDiv) {
         FlushCurrLine(true);
         RevertStyleChange();
     }
-    EmitEmptyLine(0.4f * CurrFont()->GetSize());
+    EmitParagraph(2.0f * CurrFont()->GetSize());
+    EmitEmptyLine(0.8f * CurrFont()->GetSize());
 }
 
 void HtmlFormatter::HandleTagFont(HtmlToken* t) {
