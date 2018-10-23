@@ -43,7 +43,7 @@ bool HasBeenInstalled() {
    (which is an indicator that it has been installed) or from the last known
    location of a SumatraPDF installation: */
 bool IsRunningInPortableMode() {
-    // cache the result so that it will be consistent during the lifetime of the process
+/*    // cache the result so that it will be consistent during the lifetime of the process
     static int sCacheIsPortable = -1; // -1 == uninitialized, 0 == installed, 1 == portable
     if (sCacheIsPortable != -1) {
         return sCacheIsPortable != 0;
@@ -72,7 +72,7 @@ bool IsRunningInPortableMode() {
             return false;
         }
     }
-
+*/
     return true;
 }
 
