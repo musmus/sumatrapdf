@@ -635,9 +635,6 @@ void HtmlFormatter::EmitHr() {
 void HtmlFormatter::EmitParagraph(float indent) {
     FlushCurrLine(true);
     CrashIf(NewLineX() != currX);
-    currX = NewLineX();
-    currX += 10.f;
-    FlushCurrLine(true);
     bool needsIndent = Align_Left == CurrStyle()->align || Align_Justify == CurrStyle()->align;
     if (indent > 0 && needsIndent && EnsureDx(indent)) {
         AppendInstr(DrawInstr::FixedSpace(indent));
@@ -822,8 +819,8 @@ void HtmlFormatter::HandleTagP(HtmlToken* t, bool isDiv) {
             indent = rule.textIndent * factor;
         }
 
-        SetAlignment(align);
-        EmitParagraph(indent);
+        SetAlignment(Align_Left);
+        EmitParagraph(10.f);
     } else {
         FlushCurrLine(true);
         RevertStyleChange();
