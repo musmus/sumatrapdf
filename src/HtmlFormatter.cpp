@@ -801,7 +801,10 @@ static AlignAttr GetAlignAttr(HtmlToken* t, AlignAttr defVal) {
 }
 
 void HtmlFormatter::HandleTagP(HtmlToken* t, bool isDiv) {
-    if (!t->IsEndTag()) {
+    if (t->IsEndTag()) {
+        FlushCurrLine(true);
+        RevertStyleChange();
+    } else {
         AlignAttr align = CurrStyle()->align;
         float indent = 0;
 
@@ -821,11 +824,8 @@ void HtmlFormatter::HandleTagP(HtmlToken* t, bool isDiv) {
 
         //SetAlignment(align);
         EmitParagraph(20);
-    } else {
-        FlushCurrLine(true);
-        RevertStyleChange();
     }
-    EmitEmptyLine(0.4f * CurrFont()->GetSize());
+    //EmitEmptyLine(0.4f * CurrFont()->GetSize());
 }
 
 void HtmlFormatter::HandleTagFont(HtmlToken* t) {
