@@ -556,11 +556,11 @@ void HtmlFormatter::EmitEmptyLine(float lineDy) {
     if (currY <= pageDy) {
         currX = NewLineX();
         // remove all spaces (only keep SetFont, LinkStart and Anchor instructions)
-        for (size_t k = currLineInstr.size(); k > 0; k--) {
+/*        for (size_t k = currLineInstr.size(); k > 0; k--) {
             DrawInstr& i = currLineInstr.at(k - 1);
             if (InstrFixedSpace == i.type || InstrElasticSpace == i.type)
                 currLineInstr.RemoveAt(k - 1);
-        }
+        }*/////
         return;
     }
     ForceNewPage();
@@ -637,7 +637,6 @@ void HtmlFormatter::EmitParagraph(float indent) {
     CrashIf(NewLineX() != currX);
     bool needsIndent = Align_Left == CurrStyle()->align || Align_Justify == CurrStyle()->align;
     if (indent > 0 && needsIndent) {
-	    EnsureDx(indent);
         AppendInstr(DrawInstr::FixedSpace(indent));
         currX += indent;
     }
@@ -695,7 +694,7 @@ static bool CanBreakWordOnChar(WCHAR c) {
     // https://github.com/sumatrapdfreader/sumatrapdf/pull/1057
     // There are other CJK ranges, but less common
     // https://stackoverflow.com/questions/1366068/whats-the-complete-range-for-chinese-characters-in-unicode
-    if (c >= 0x4e00 && c <= 0x9fff) {
+    if (c >= 0x2e80 && c <= 0x9fff) {////
         return false;
     }
     return true;
@@ -825,7 +824,7 @@ void HtmlFormatter::HandleTagP(HtmlToken* t, bool isDiv) {
     } else {
         FlushCurrLine(true);
         RevertStyleChange();
-        EmitEmptyLine(0.9f * CurrFont()->GetSize());
+////        EmitEmptyLine(0.5f * CurrFont()->GetSize());
     }
 }
 
@@ -1101,7 +1100,7 @@ void HtmlFormatter::HandleHtmlTag(HtmlToken* t) {
 
     HtmlTag tag = t->tag;
     if (Tag_P == tag) {
-        HandleTagP(t);
+        HandleTagP(t, false);
     } else if (Tag_Hr == tag) {
         EmitHr();
     } else if ((Tag_B == tag) || (Tag_Strong == tag)) {
