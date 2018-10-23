@@ -637,6 +637,7 @@ void HtmlFormatter::EmitParagraph(float indent) {
     CrashIf(NewLineX() != currX);
     bool needsIndent = Align_Left == CurrStyle()->align || Align_Justify == CurrStyle()->align;
     if (indent > 0 && needsIndent) {
+	    EnsureDx(indent);
         AppendInstr(DrawInstr::FixedSpace(indent));
         currX += indent;
     }
@@ -824,7 +825,7 @@ void HtmlFormatter::HandleTagP(HtmlToken* t, bool isDiv) {
     } else {
         FlushCurrLine(true);
         RevertStyleChange();
-        EmitEmptyLine(0.4f * CurrFont()->GetSize());
+        EmitEmptyLine(0.9f * CurrFont()->GetSize());
     }
 }
 
