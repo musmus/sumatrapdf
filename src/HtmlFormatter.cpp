@@ -437,7 +437,7 @@ void HtmlFormatter::JustifyCurrLine(AlignAttr align) {
             LayoutLeftStartingAt((pageDx - currX) / 2.f);
             break;
         case Align_Justify:
-            JustifyLineBoth();
+//            JustifyLineBoth();
             break;
         default:
             CrashIf(true);
@@ -638,6 +638,7 @@ void HtmlFormatter::EmitParagraph(float indent) {
     bool needsIndent = Align_Left == CurrStyle()->align || Align_Justify == CurrStyle()->align;
     if (indent > 0 && needsIndent && EnsureDx(indent)) {
         AppendInstr(DrawInstr::FixedSpace(indent));
+        currX = NewLineX();////
         currX += indent;
     }
 }
@@ -720,8 +721,8 @@ void HtmlFormatter::EmitTextRun(const char* s, const char* end) {
         size_t strLen = str::Utf8ToWcharBuf(s, end - s, buf, dimof(buf));
         // soft hyphens should not be displayed
         strLen -= str::RemoveChars(buf, L"\xad");
-//        if (0 == strLen)
-//            break;
+        if (0 == strLen)
+            break;
         textMeasure->SetFont(CurrFont());
         RectF bbox = textMeasure->Measure(buf, strLen);
         EnsureDx(bbox.Width);
