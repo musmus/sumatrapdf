@@ -636,12 +636,10 @@ void HtmlFormatter::EmitParagraph(float indent) {
     FlushCurrLine(true);
     CrashIf(NewLineX() != currX);
     bool needsIndent = Align_Left == CurrStyle()->align || Align_Justify == CurrStyle()->align;
-    AppendInstr(DrawInstr::FixedSpace(indent));
-    currX += indent;
-    FlushCurrLine(true);
-    AppendInstr(DrawInstr::FixedSpace(20.f));
-    currX += 20.f;
-    
+    if (indent > 0 && needsIndent && EnsureDx(indent)) {
+        AppendInstr(DrawInstr::FixedSpace(indent));
+        currX += indent;
+    }
 }
 
 // ensure there is enough dx space left in the current line
@@ -1102,7 +1100,7 @@ void HtmlFormatter::HandleHtmlTag(HtmlToken* t) {
 
     HtmlTag tag = t->tag;
     if (Tag_P == tag) {
-        HandleTagP(t);
+        HandleTagP(t, true);
     } else if (Tag_Hr == tag) {
         EmitHr();
     } else if ((Tag_B == tag) || (Tag_Strong == tag)) {
