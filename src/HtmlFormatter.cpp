@@ -738,12 +738,12 @@ void HtmlFormatter::EmitTextRun(const char* s, const char* end) {
         size_t lenThatFits = StringLenForWidth(textMeasure, buf, strLen, pageDx - NewLineX());
         // try to prevent a break in the middle of a word
         if (!CanBreakWordOnChar(buf[lenThatFits])) {
-            for (size_t len = lenThatFits; len > 0; len--) {
+/*            for (size_t len = lenThatFits; len > 0; len--) {
                 if (!CanBreakWordOnChar(buf[len - 1])) {
                     lenThatFits = len;
                     break;
                 }
-            }
+            }*/
         }
         textMeasure->SetFont(CurrFont());
         bbox = textMeasure->Measure(buf, lenThatFits);
