@@ -556,11 +556,11 @@ void HtmlFormatter::EmitEmptyLine(float lineDy) {
     if (currY <= pageDy) {
         currX = NewLineX();
         // remove all spaces (only keep SetFont, LinkStart and Anchor instructions)
-/*        for (size_t k = currLineInstr.size(); k > 0; k--) {
+        for (size_t k = currLineInstr.size(); k > 0; k--) {
             DrawInstr& i = currLineInstr.at(k - 1);
             if (InstrFixedSpace == i.type || InstrElasticSpace == i.type)
                 currLineInstr.RemoveAt(k - 1);
-        }*/////
+        }
         return;
     }
     ForceNewPage();
@@ -679,7 +679,7 @@ void HtmlFormatter::EmitElasticSpace() {
 // return true if we can break a word on a given character during layout
 static bool CanBreakWordOnChar(WCHAR c) {
     // this is called frequently, so check most common characters first
-    if (c >= 'a' && c <= 'z') {
+/*    if (c >= 'a' && c <= 'z') {
         return false;
     }
     if (c >= 'A' && c <= 'Z') {
@@ -694,10 +694,14 @@ static bool CanBreakWordOnChar(WCHAR c) {
     // https://github.com/sumatrapdfreader/sumatrapdf/pull/1057
     // There are other CJK ranges, but less common
     // https://stackoverflow.com/questions/1366068/whats-the-complete-range-for-chinese-characters-in-unicode
-    if (c >= 0x2e80 && c <= 0x9fff) {////
+    if (c >= 0x2e80 && c <= 0xffef) {////
         return false;
+    }　
+    return true;*/
+    if (c < 0x0021 || c == '-' || c == 0x3000) {
+        return true;
     }
-    return true;
+    return false;
 }
 
 // a text run is a string of consecutive text with uniform style
